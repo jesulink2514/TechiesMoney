@@ -15,7 +15,7 @@
 		<ApplicationTitle>TechiesMoney.Mobile</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.techiesmoney.mobile</ApplicationId>
+		<ApplicationId>com.techiesmoney</ApplicationId>
 		<ApplicationIdGuid>917F0928-00A6-405B-912F-4C2569D8A460</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -49,8 +49,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Microsoft.Identity.Client" Version="4.44.0" />
 	  <PackageReference Include="Prism.DryIoc.Maui" Version="8.1.154-beta" />
 	  <PackageReference Include="Prism.Maui" Version="8.1.154-beta" />
+	  <PackageReference Include="PropertyChanged.Fody" Version="3.4.1" />
+	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.18.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -58,5 +61,7 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionTechiesMoneyMobileHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
 </Project>
