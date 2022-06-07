@@ -3,9 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TechiesMoney.Mobile.Pages.WelcomePage"
              Title="WelcomePage">
-    <StackLayout>
-        <Label Text="Welcome to .NET MAUI!"
-                VerticalOptions="Center" 
-                HorizontalOptions="Center" />
-    </StackLayout>
+    <Grid Padding="20" RowSpacing="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Image Source="sharing_knowledge" Margin="10,20"/>
+        
+        <Label Text="Get the most from .NET MAUI in one place. Maui Fest!"
+               FontAttributes="Bold" FontSize="24"
+                VerticalOptions="Center" HorizontalTextAlignment="Center"
+                HorizontalOptions="Center" Grid.Row="1"/>
+
+        <Label Text="Welcome to our AD B2C + .NET MAUI demo" FontSize="20"
+               TextColor="{StaticResource Gray900}" HorizontalTextAlignment="Center"
+               Grid.Row="2"/>
+
+        <Button Text="Sign-in or sign-up" 
+                Command="{Binding LoginCommand}"
+                Grid.Row="3" Margin="0,20,0,0"/>
+    </Grid>
 </ContentPage>

@@ -3,7 +3,14 @@ using System.Diagnostics;
 
 namespace TechiesMoney.Mobile.Services.Authentication
 {
-    public class AuthService
+    public interface IAuthService
+    {
+        Task<AuthenticationResult> LoginSilently(CancellationToken cancellationToken);
+        Task<AuthenticationResult> LoginAsync(CancellationToken cancellationToken);
+        Task<AuthenticationResult> LoginInteractively(CancellationToken cancellationToken);
+        Task SignOutAsync();
+    }
+    public class AuthService: IAuthService
     {
         private readonly IPublicClientApplication authenticationClient;
         public AuthService()
@@ -38,7 +45,23 @@ namespace TechiesMoney.Mobile.Services.Authentication
                 return null;
             }
         }
-
+        public async Task<AuthenticationResult> LoginSilently(CancellationToken cancellationToken)
+        {            
+            try
+            {
+                IEnumerable<IAccount> accounts = await authenticationClient.GetAccountsAsync();
+                
+                var result = await authenticationClient
+                .AcquireTokenSilent(Constants.Scopes, GetAccountByEnvironment(accounts, Constants.AccountEnvironment))
+                .ExecuteAsync(cancellationToken);
+                
+                return result;
+            }
+            catch (MsalUiRequiredException ex)
+            {
+                return null;
+            }                        
+        }
         public async Task<AuthenticationResult> LoginInteractively(CancellationToken cancellationToken)
         {
             try

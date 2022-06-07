@@ -49,6 +49,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\sharing_knowledge.svg" />
+	  <None Remove="Resources\Images\user.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="Microsoft.Identity.Client" Version="4.44.0" />
 	  <PackageReference Include="Prism.DryIoc.Maui" Version="8.1.154-beta" />
 	  <PackageReference Include="Prism.Maui" Version="8.1.154-beta" />
