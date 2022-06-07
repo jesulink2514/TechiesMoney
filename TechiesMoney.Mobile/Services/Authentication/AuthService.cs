@@ -29,14 +29,8 @@ namespace TechiesMoney.Mobile.Services.Authentication
             }
             catch(MsalUiRequiredException rex)
             {
-                result = await authenticationClient
-                    .AcquireTokenInteractive(Constants.Scopes)
-                    .WithPrompt(Prompt.ForceLogin)
-#if ANDROID
-                    .WithParentActivityOrWindow(Microsoft.Maui.ApplicationModel.Platform.CurrentActivity)
-#endif
-                    .ExecuteAsync(cancellationToken);
-                return result;
+                Debug.WriteLine(rex);
+                return await LoginInteractively(cancellationToken);
             }
             catch (Exception ex)
             {
@@ -45,6 +39,34 @@ namespace TechiesMoney.Mobile.Services.Authentication
             }
         }
 
+        public async Task<AuthenticationResult> LoginInteractively(CancellationToken cancellationToken)
+        {
+            try
+            {               
+                var result = await authenticationClient
+                    .AcquireTokenInteractive(Constants.Scopes)
+                    .WithPrompt(Prompt.ForceLogin)
+#if ANDROID
+                    .WithParentActivityOrWindow(Microsoft.Maui.ApplicationModel.Platform.CurrentActivity)
+#endif
+                    .ExecuteAsync(cancellationToken);
+                return result;
+            }
+            catch (MsalClientException msalEx)
+            {
+                if (msalEx.ErrorCode == "authentication_canceled")
+                {
+                    return null;
+                }
+                Debug.Write(msalEx);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return null;
+            }
+        }
         private IAccount GetAccountByEnvironment(IEnumerable<IAccount> accounts, string environment)
         {
             foreach (var account in accounts)
