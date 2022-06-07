@@ -12,6 +12,10 @@
                HorizontalOptions="Center"
                TextColor="{StaticResource Gray600}"/>
 
+        <Label Text="{Binding Weather}" FontSize="20"
+               HorizontalOptions="Center"/>
+        <Button Text="Request forecast" Command="{Binding CallCommand}"/>
+
         <Button Text="Sign me out" Command="{Binding SignOutCommand}"/>
     </StackLayout>
 </ContentPage>

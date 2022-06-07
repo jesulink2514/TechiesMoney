@@ -27,14 +27,10 @@ public static class MauiProgram
                 containerRegistry.RegisterForNavigation<WelcomePage, WelcomePageViewModel>();
                 containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
             })
-            .OnAppStart(async(container, navigationService) =>
-            {
-                navigationService.CreateBuilder()
-                    .AddNavigationSegment<WelcomePageViewModel>()
-                    .Navigate(HandleNavigationError);
-
+            .OnAppStart((container, navigationService) =>
+            {              
                 var authService = (IAuthService)container.Resolve(typeof(IAuthService));
-                var result = await authService.LoginSilently(CancellationToken.None);
+                var result = authService.LoginSilently(CancellationToken.None).Result;
 
                 if (result != null)
                 {                    
@@ -43,6 +39,12 @@ public static class MauiProgram
                     .AddNavigationSegment<HomePageViewModel>()
                     .AddParameter("login", result)
                     .Navigate(HandleNavigationError);
+                }
+                else
+                {
+                    navigationService.CreateBuilder()
+                  .AddNavigationSegment<WelcomePageViewModel>()
+                  .Navigate(HandleNavigationError);
                 }
             });
 

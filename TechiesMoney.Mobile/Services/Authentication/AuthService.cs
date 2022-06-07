@@ -17,7 +17,7 @@ namespace TechiesMoney.Mobile.Services.Authentication
         {
             authenticationClient = PublicClientApplicationBuilder.Create(Constants.ClientId)
                 .WithB2CAuthority(Constants.AuthoritySignIn)
-                .WithRedirectUri($"msal{Constants.ClientId}://auth")
+                .WithRedirectUri($"msal{Constants.ClientId}://auth")                
                 .Build();
         }
 
