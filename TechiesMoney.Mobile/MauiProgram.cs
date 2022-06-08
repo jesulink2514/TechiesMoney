@@ -18,7 +18,7 @@ public static class MauiProgram
             .UsePrismApp<App>()
             .ConfigureServices(services =>
             {
-                services.AddSingleton<IAuthService, AuthService>();
+                //services.AddSingleton<IAuthService, AuthService>();
                 services.AddTransient<WelcomePageViewModel>();
                 services.AddTransient<HomePageViewModel>();
             })
@@ -28,24 +28,10 @@ public static class MauiProgram
                 containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
             })
             .OnAppStart((container, navigationService) =>
-            {              
-                var authService = (IAuthService)container.Resolve(typeof(IAuthService));
-                var result = authService.LoginSilently(CancellationToken.None).Result;
-
-                if (result != null)
-                {                    
-                    navigationService.CreateBuilder()
-                    .UseAbsoluteNavigation()
-                    .AddNavigationSegment<HomePageViewModel>()
-                    .AddParameter("login", result)
-                    .Navigate(HandleNavigationError);
-                }
-                else
-                {
-                    navigationService.CreateBuilder()
+            {  
+                navigationService.CreateBuilder()
                   .AddNavigationSegment<WelcomePageViewModel>()
-                  .Navigate(HandleNavigationError);
-                }
+                  .Navigate(HandleNavigationError);                
             });
 
         return builder.Build();
