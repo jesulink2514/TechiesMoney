@@ -9,11 +9,10 @@ namespace TechiesMoney.Mobile.Services.Authentication
 {
     public static class Constants
     {
-        public static readonly string ClientId = "f5c23760-84a1-4c46-b53a-b6e407961da3";
-        public static readonly string[] Scopes = new string[] { "openid", "offline_access", "https://sampletechies.onmicrosoft.com/api/read_data" };
-        public static readonly string[] ApiScopes = new string[] {""};
+        public static readonly string ClientId = "xxxxxxxx-xxxx-xxxxx-xxxx-xxxxxxxx";
+        public static readonly string[] Scopes = new string[] { "openid", "offline_access" };        
 
-        public static readonly string TenantName = "sampletechies";
+        public static readonly string TenantName = "xxxxxxxx";
         public static readonly string TenantId = $"{TenantName}.onmicrosoft.com";
         public static readonly string SignInPolicy = "B2C_1_SignupSignIn";
         public static readonly string AuthorityBase = $"https://{TenantName}.b2clogin.com/tfp/{TenantId}/";
